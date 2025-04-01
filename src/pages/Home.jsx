@@ -1,16 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaMedium, FaAward, FaCode, FaLaptopCode, FaInstagram } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
+import { 
+  FaGithub, 
+  FaLinkedin, 
+  FaTwitter,
+  FaInstagram, 
+  FaEnvelope, 
+  FaMedium,
+  FaAward,
+  FaCode,
+  FaLaptopCode
+} from 'react-icons/fa';
 
 const Home = () => {
+  const navigate = useNavigate();
+  const [hoveredSkill, setHoveredSkill] = useState(null);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.3,
-        delayChildren: 0.2
+        staggerChildren: 0.2
       }
     }
   };
@@ -21,8 +33,7 @@ const Home = () => {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 0.8,
-        ease: "easeOut"
+        duration: 0.8
       }
     }
   };
@@ -33,207 +44,154 @@ const Home = () => {
     { icon: FaLaptopCode, label: "Technologies", value: "20+" }
   ];
 
-  return (
-    <div className="relative min-h-screen">
-      {/* Background Animation */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute w-[500px] h-[500px] bg-purple-500/20 rounded-full blur-3xl -top-48 -right-48 animate-pulse"></div>
-        <div className="absolute w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-3xl -bottom-48 -left-48 animate-pulse delay-1000"></div>
-      </div>
+  const skills = [
+    { 
+      name: "React", 
+      level: 85, 
+      description: "Crafting dynamic, responsive web applications with modern React ecosystem." 
+    },
+    { 
+      name: "UI/UX", 
+      level: 94, 
+      description: "Designing intuitive, user-centered interfaces that solve real-world problems." 
+    },
+    { 
+      name: "JavaScript", 
+      level: 82, 
+      description: "Building interactive and scalable frontend solutions with advanced JavaScript techniques." 
+    }
+  ];
 
-      <div className="relative min-h-screen flex items-center justify-center px-4 py-20">
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
+
+  return (
+    <div className="min-h-screen pt-20 px-4 bg-[#0f172a]">
+      <div className="max-w-6xl mx-auto">
         <motion.div
-          className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
-          <motion.div 
-            className="order-2 md:order-1 text-left"
-            variants={containerVariants}
-          >
-            <motion.div
-              className="inline-block mb-4 px-4 py-2 rounded-full bg-white/5 border border-white/10"
-              variants={itemVariants}
-            >
-              <span className="text-sm">👋 Welcome to my portfolio</span>
-            </motion.div>
-
-            <motion.h1 
-              className="text-5xl md:text-7xl font-bold mb-6 gradient-text"
-              variants={itemVariants}
-            >
-              Ayman Jaleel
-            </motion.h1>
-            
-            <motion.h2 
-              className="text-xl md:text-2xl text-gray-400 mb-6"
-              variants={itemVariants}
-            >
-              Computer Science Undergraduate | Machine Learning Enthusiast | Full-Stack Developer
-            </motion.h2>
-            
-            <motion.p 
-              className="text-lg text-gray-300 mb-8"
-              variants={itemVariants}
-            >
-              Transforming complex problems into elegant solutions through code. 
-              Specializing in AI/ML, full-stack development, and creating seamless user experiences.
-            </motion.p>
-
-            {/* Quick Stats */}
-            <motion.div 
-              className="grid grid-cols-3 gap-4 mb-8"
-              variants={itemVariants}
-            >
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={index}
-                  className="text-center p-4 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors"
-                  whileHover={{ scale: 1.05 }}
-                >
-                  <stat.icon className="text-2xl mb-2 mx-auto" />
-                  <div className="text-2xl font-bold gradient-text">{stat.value}</div>
-                  <div className="text-sm text-gray-400">{stat.label}</div>
-                </motion.div>
-              ))}
-            </motion.div>
-
-            <motion.div 
-              className="flex gap-4 mb-8 flex-wrap"
-              variants={itemVariants}
-            >
-              {[
-                { icon: FaGithub, link: "https://github.com/thaheshan", label: "GitHub", color: "hover:text-purple-400" },
-                { icon: FaLinkedin, link: "https://www.linkedin.com/in/thaheshan-suresh0911/", label: "LinkedIn", color: "hover:text-blue-400" },
-                { icon: FaInstagram, link: "https://twitter.com/yourusername", label: "Twitter", color: "hover:text-sky-400" },
-                { icon: FaMedium, link: "https://medium.com/@mthalapathy549", label: "Medium", color: "hover:text-green-400" },
-                { icon: FaEnvelope, link: "mailto:thaheshanmanithan@gmail.com", label: "Email", color: "hover:text-red-400" }
-
-
-              ].map((social, index) => (
-                <motion.a
-                  key={social.label}
-                  href={social.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`p-3 text-2xl ${social.color} bg-white/5 rounded-full border border-white/10 transition-all`}
-                  whileHover={{ scale: 1.2, rotate: 5 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <social.icon />
-                </motion.a>
-              ))}
-            </motion.div>
-
-            <motion.div 
-              className="flex flex-wrap gap-4"
-              variants={itemVariants}
-            >
-              <Link
-                to="/projects"
-                className="group px-8 py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-full font-medium relative overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
-              >
-                <span className="absolute inset-0 bg-white/20 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></span>
-                <span className="relative">My CV</span>
-              </Link>
-              <Link
-                to="/contact"
-                className="px-8 py-3 border-2 border-white/20 text-white rounded-full font-medium hover:bg-white hover:text-black transition-all group relative overflow-hidden"
-              >
-                <span className="absolute inset-0 bg-white transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300 z-0"></span>
-                <span className="relative z-10">Contact Me</span>
-              </Link>
-            </motion.div>
-          </motion.div>
-
-          <motion.div 
-            className="order-1 md:order-2 relative"
-            variants={itemVariants}
-          >
-            <motion.div
-              className="relative w-full aspect-square max-w-md mx-auto"
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              {/* Multiple gradient layers for depth */}
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/30 to-blue-500/30 rounded-full blur-3xl animate-pulse"></div>
-              <div className="absolute inset-4 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-2xl animate-pulse delay-150"></div>
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            {/* Left Column - Text Content */}
+            <motion.div variants={itemVariants}>
+              <div className="mb-6 inline-flex items-center px-3 py-1 rounded-full border border-white/10 bg-white/5 text-sm">
+                <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+                <span>Available for projects</span>
+              </div>
               
-             {/* addedpath */}
-              <img
-  src="/images/thaheshan.jpeg"
-  alt="Thaheshan Suresh"
-  className="relative rounded-full w-full h-full object-cover border-4 border-white/10 shadow-2xl"
-/>
+              <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">
+                <span className="block">Hi, I'm</span>
+                <span className="block mt-2 gradient-text">Ayman Jaleel</span>
+              </h1>
+              
+              <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+                Computer Science undergraduate passionate about creating 
+                <span className="text-white"> digital experiences</span> that make a meaningful impact.
+              </p>
 
+              {/* Skills Section */}
+              <div className="mb-8">
+                <h3 className="text-lg font-semibold text-white mb-4">Core Skills</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {skills.map((skill, index) => (
+                    <motion.div
+                      key={index}
+                      className={`
+                        p-4 rounded-xl transition-all duration-300 
+                        ${hoveredSkill === skill.name 
+                          ? 'bg-gradient-to-r from-purple-600/50 to-blue-500/50 scale-105' 
+                          : 'bg-gray-800/50'}
+                      `}
+                      onMouseEnter={() => setHoveredSkill(skill.name)}
+                      onMouseLeave={() => setHoveredSkill(null)}
+                      whileHover={{ scale: 1.05 }}
+                    >
+                      <div className="flex justify-between mb-2">
+                        <span className="text-white font-medium">{skill.name}</span>
+                        <span className="text-gray-400">{skill.level}%</span>
+                      </div>
+                      <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
+                        <motion.div 
+                          className="h-full bg-gradient-to-r from-purple-500 to-blue-500"
+                          initial={{ width: 0 }}
+                          animate={{ width: `${skill.level}%` }}
+                          transition={{ duration: 1, delay: 0.5 }}
+                        />
+                      </div>
+                      {hoveredSkill === skill.name && (
+                        <p className="text-xs text-gray-300 mt-2">{skill.description}</p>
+                      )}
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
 
-              {/* Rotating borders */}
-              <motion.div
-                className="absolute -inset-4 border-2 border-purple-500/20 rounded-full"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-              />
-              <motion.div
-                className="absolute -inset-8 border-2 border-blue-500/20 rounded-full"
-                animate={{ rotate: -360 }}
-                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-              />
-            </motion.div>
+              {/* Action Buttons */}
+              <div className="flex space-x-4">
+                <motion.button 
+                  onClick={() => handleNavigation('/projects')}
+                  className="px-6 py-3 rounded-full bg-gradient-to-r from-purple-600 to-blue-500 text-white font-medium"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  View Projects
+                </motion.button>
+                
+                <motion.button 
+                  onClick={() => handleNavigation('/contact')}
+                  className="px-6 py-3 rounded-full border border-white/20 text-white font-medium"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Contact Me
+                </motion.button>
+              </div>
 
-            {/* Tech stack pills */}
-            <motion.div
-              className="absolute -right-4 top-1/4 transform rotate-12"
-              whileHover={{ scale: 1.1 }}
-            >
-              <div className="px-4 py-2 bg-purple-500/20 backdrop-blur-sm rounded-full border border-purple-500/30">
-                Machine Learning
+              {/* Social Links */}
+              <div className="mt-8 flex items-center space-x-4">
+                <span className="text-gray-400">Connect:</span>
+                {[
+                  { icon: FaGithub, href: "https://github.com/Ayman-Jaleel03" },
+                  { icon: FaLinkedin, href: "https://www.linkedin.com/in/thaheshan-suresh0911/" },
+                  { icon: FaInstagram, href: "#" },
+                  { icon: FaMedium, href: "https://medium.com/@mthalapathy549" },
+                  { icon: FaEnvelope, href: "mailto:thaheshanmanithan@gmail.com" }
+                ].map((social, index) => (
+                  <motion.a
+                    key={index}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-400 hover:text-white"
+                    whileHover={{ scale: 1.2, rotate: 5 }}
+                  >
+                    <social.icon className="text-xl" />
+                  </motion.a>
+                ))}
               </div>
             </motion.div>
-            <motion.div
-              className="absolute -left-4 top-2/3 transform -rotate-12"
-              whileHover={{ scale: 1.1 }}
-            >
-              <div className="px-4 py-2 bg-blue-500/20 backdrop-blur-sm rounded-full border border-blue-500/30">
-                Full Stack Dev
-              </div>
-            </motion.div>
-            <motion.div
-              className="absolute -left-1 top-2 transform -rotate-16"
-              whileHover={{ scale: 1.1 }}
-            >
-              <div className="px-4 py-2 bg-blue-500/20 backdrop-blur-sm rounded-full border border-blue-500/30">
-                UI/UX Designer
-              </div>
-            </motion.div>
-          </motion.div>
-        </motion.div>
 
-        {/* Scroll Indicator */}
-        <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          animate={{
-            y: [0, 10, 0],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        >
-          <div className="text-white/50 text-sm">Scroll to explore</div>
-          <div className="w-1 h-8 bg-white/20 mx-auto mt-2 rounded-full">
+            {/* Right Column - Profile Image */}
             <motion.div 
-              className="w-full h-1/2 bg-gradient-to-b from-purple-500 to-blue-500 rounded-full"
-              animate={{
-                y: [0, 16, 0],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
+              variants={itemVariants}
+              className="relative flex justify-center"
+            >
+              <div className="max-w-md w-full">
+                <div className="aspect-square rounded-2xl overflow-hidden border-4 border-white/10">
+                  <img
+                    src="/images/thaheshan.jpeg"
+                    alt="Ayman Jaleel"
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.target.src = "https://via.placeholder.com/400?text=Ayman+Jaleel";
+                    }}
+                  />
+                </div>
+              </div>
+            </motion.div>
           </div>
         </motion.div>
       </div>
