@@ -155,7 +155,7 @@ const Home = () => {
                 <span className="text-gray-400">Connect:</span>
                 {[
                   { icon: FaGithub, href: "https://github.com/Ayman-Jaleel03" },
-                  { icon: FaLinkedin, href: "www.linkedin.com/in/ayman-jaleel-881a4b304" },
+                  { icon: FaLinkedin, href: "http://www.linkedin.com/in/ayman-jaleel-881a4b304" },
                   { icon: FaInstagram, href: "#" },
                   { icon: FaEnvelope, href: "mailto:sajaal2003@gmail.com" }
                 ].map((social, index) => (
