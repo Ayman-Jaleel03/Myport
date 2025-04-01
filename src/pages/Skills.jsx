@@ -1,65 +1,97 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
 
 const skillCategories = [
   {
     name: "Programming Languages",
-    skills: ["Python", "Java", "HTML", "CSS", "JavaScript", "Kotlin", "PHP"]
+    skills: [
+      { name: "Python", level: 90 },
+      { name: "Java", level: 85 },
+      { name: "HTML", level: 95 },
+      { name: "CSS", level: 90 },
+      { name: "JavaScript", level: 88 }
+    ]
   },
   {
     name: "Frameworks & Libraries",
-    skills: ["React", "Node.js", "Spring Boot", "Angular", "Flutter"]
+    skills: [
+      { name: "React", level: 92 },
+      { name: "Node.js", level: 80 },
+      { name: "Spring Boot", level: 85 }
+    ]
   },
   {
     name: "Tools & Technologies",
-    skills: ["Git", "Docker", "Figma", "AWS", "TensorFlow"]
+    skills: [
+      { name: "Git", level: 88 },
+      { name: "Figma", level: 90 }
+    ]
   }
 ];
 
-const SkillBar = ({ name }) => (
-  <div className="mb-4">
-    <span className="text-sm font-medium">{name}</span>
-    <div className="w-full bg-gray-700 rounded-full h-2.5 mt-1">
-      <motion.div
-        className="bg-white h-2.5 rounded-full"
-        initial={{ width: 0 }}
-        animate={{ width: "100%" }}
-        transition={{ duration: 1, delay: 0.2 }}
-      />
+const SkillCard = ({ skill }) => {
+  return (
+    <div 
+      className="bg-gray-800 p-4 rounded-xl hover:scale-105 hover:bg-gray-700 transition-all duration-300"
+    >
+      <div className="flex justify-between items-center mb-2">
+        <span className="text-white font-medium">{skill.name}</span>
+        <span className="text-blue-400 font-bold">{skill.level}%</span>
+      </div>
+      <div className="w-full bg-gray-700 rounded-full h-2.5">
+        <div
+          className="bg-gradient-to-r from-purple-600 to-blue-500 h-2.5 rounded-full transition-all duration-1000"
+          style={{ width: `${skill.level}%` }}
+        />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const Skills = () => {
+  const [activeCategory, setActiveCategory] = useState(skillCategories[0].name);
+
   return (
-    <div className="min-h-screen pt-20 px-4">
-      <div className="max-w-4xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <h1 className="text-4xl font-bold mb-8 gradient-text">Skills</h1>
-          
-          <div className="space-y-12">
-            {skillCategories.map((category, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.2 }}
-                className="card p-6 rounded-lg"
+    <div className="min-h-screen pt-20 px-4 bg-gray-900">
+      <div className="max-w-6xl mx-auto">
+        <div className="opacity-100 transform translate-y-0 transition-all duration-800">
+          <h1 className="text-5xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-500">
+            My Skills
+          </h1>
+
+          {/* Category Selector */}
+          <div className="flex justify-center mb-12 space-x-4">
+            {skillCategories.map((category) => (
+              <button
+                key={category.name}
+                onClick={() => setActiveCategory(category.name)}
+                className={`
+                  px-4 py-2 rounded-full transition-all duration-300
+                  ${activeCategory === category.name 
+                    ? 'bg-gradient-to-r from-purple-600 to-blue-500 text-white' 
+                    : 'bg-gray-800 text-gray-300 hover:bg-gray-700'}
+                `}
               >
-                <h2 className="text-2xl font-semibold mb-6">{category.name}</h2>
-                <div className="space-y-4">
-                  {category.skills.map((skill, skillIndex) => (
-                    <SkillBar key={skillIndex} name={skill} />
-                  ))}
-                </div>
-              </motion.div>
+                {category.name}
+              </button>
             ))}
           </div>
-        </motion.div>
+
+          {/* Skills Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {skillCategories
+              .find(category => category.name === activeCategory)
+              .skills.map((skill, index) => (
+                <div
+                  key={skill.name}
+                  className="opacity-100 transform translate-y-0 transition-all duration-500"
+                  style={{ transitionDelay: `${index * 100}ms` }}
+                >
+                  <SkillCard skill={skill} />
+                </div>
+              ))
+            }
+          </div>
+        </div>
       </div>
     </div>
   );
