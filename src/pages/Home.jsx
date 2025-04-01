@@ -63,7 +63,7 @@ const Home = () => {
               className="text-5xl md:text-7xl font-bold mb-6 gradient-text"
               variants={itemVariants}
             >
-              Thaheshan Suresh
+              Ayman Jaleel
             </motion.h1>
             
             <motion.h2 
