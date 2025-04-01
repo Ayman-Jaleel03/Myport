@@ -155,10 +155,9 @@ const Home = () => {
                 <span className="text-gray-400">Connect:</span>
                 {[
                   { icon: FaGithub, href: "https://github.com/Ayman-Jaleel03" },
-                  { icon: FaLinkedin, href: "https://www.linkedin.com/in/thaheshan-suresh0911/" },
+                  { icon: FaLinkedin, href: "www.linkedin.com/in/ayman-jaleel-881a4b304" },
                   { icon: FaInstagram, href: "#" },
-                  { icon: FaMedium, href: "https://medium.com/@mthalapathy549" },
-                  { icon: FaEnvelope, href: "mailto:thaheshanmanithan@gmail.com" }
+                  { icon: FaEnvelope, href: "mailto:sajaal2003@gmail.com" }
                 ].map((social, index) => (
                   <motion.a
                     key={index}
@@ -182,7 +181,7 @@ const Home = () => {
               <div className="max-w-md w-full">
                 <div className="aspect-square rounded-2xl overflow-hidden border-4 border-white/10">
                   <img
-                    src="/images/AymanJaleel.jpg"
+                    src="src/images/AymanJaleel.jpg"
                     alt="Ayman Jaleel"
                     className="w-full h-full object-cover"
                     onError={(e) => {
